@@ -1,0 +1,21 @@
+{
+  "name": "mizzen",
+  "version": "1.0.0",
+  "homepage": "https://github.com/kvchen/mizzen",
+  "authors": [
+    "Kevin Chen <kvchen@berkeley.edu>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "nprogress": "~0.1.6",
+    "particles.js": "~1.1.0"
+  }
+}
