@@ -10,7 +10,11 @@ Being Docker-based, Mizzen also comes with security in the form of virtualizatio
 
 ## Installation
 
-Mizzen relies on [Node.js](https://nodejs.org/), [Docker](https://www.docker.com/), and [MongoDB](http://www.mongodb.org/). These dependencies should be installed prior to using Mizzen.
+Mizzen relies on [Docker](https://www.docker.com/), [MongoDB](http://www.mongodb.org/), [Node.js](https://nodejs.org/), and [Redis](http://redis.io/). These dependencies should be installed prior to using Mizzen.
+
+```
+$ npm install mizzen
+```
 
 To install dependencies for Node and client-side libraries from Bower:
 

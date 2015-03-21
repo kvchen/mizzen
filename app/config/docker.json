@@ -1,0 +1,10 @@
+{
+  "socket": "/var/run/docker.sock", 
+  "container": {
+    "image": null, 
+    "networkDisabled": true, 
+    "memory": 50e6, 
+    "timeout": 1e4, 
+    "maxLength": 1e3
+  }
+}
