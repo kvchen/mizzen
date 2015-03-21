@@ -1,20 +1,44 @@
-expect = require('chai').expect
+expect  = require('chai').expect
+nconf   = require 'nconf'
+request = require 'supertest'
+
+app = require '../app'
+
 
 describe 'API tests', ->
   describe 'Submissions endpoint', ->
-    describe 'POST /submissions', ->
-      it 'should add a user submission'
-
     describe 'GET /submissions', ->
-      it 'should return all user submissions'
+      it 'should return all user submissions', (done) ->
+        request app
+          .get '/submissions'
+          .set 'Accept', 'application/json'
+          .expect 'Content-Type', /json/
+          .expect 200, done
 
-    describe 'GET /submissions/:id', ->
-      it 'should return a JSON containing submission info and status'
+    describe 'POST /submissions/create', ->
+      it 'should create a user submission', (done) ->
+        request app
+          .post '/submissions/create'
+          .set 'Accept', 'application/json'
+          .expect 'Content-Type', /json/
+          .expect 200, done
 
-    describe 'PATCH /submissions/:id', ->
-      it 'should modify the submission'
+    # By submission ID
+    describe 'GET /submissions/status/:id', ->
+      it 'should return submission status'
 
-  describe 'Rate-limiting by IP address', ->
-    it 'should restrict an IP to 1 request every 15 seconds'
+    describe 'GET /submissions/details/:id', ->
+      it 'should return submission details'
+
+    describe 'POST submissions/update/:id', ->
+      it 'should update the submission'
+
+    describe 'POST submissions/destroy/:id', ->
+      it 'should delete the submission'
+
+
+  describe 'Authentication endpoint', ->
+    describe 'POST /auth/token/create', ->
+      it 'should create an authentication token'
 
 

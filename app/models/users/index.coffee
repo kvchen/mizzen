@@ -2,9 +2,7 @@ bcrypt   = require 'bcrypt'
 mongoose = require 'mongoose'
 
 
-userSchema = new mongoose.Schema
-  _id: mongoose.Schema.Types.ObjectId
-
+UserSchema = new mongoose.Schema
   username: 
     type: String
     required: true
@@ -15,31 +13,35 @@ userSchema = new mongoose.Schema
     type: String
     required: true
 
+  courses: [{type: mongoose.Schema.Types.ObjectId, ref: 'Course'}]
+
 
 # Middleware for hashing passwords
 
-userSchema.pre 'save', (next) ->
+UserSchema.pre 'save', (next) ->
+  user = this
+
   # Hash the password if it is new
-  return next() if !this.isModified 'password'
+  return next() if !user.isModified 'password'
 
   # Generate a salt
-  bcrypt.genSalt SALT_WORK_FACTOR, (err, salt) ->
+  bcrypt.genSalt 10, (err, salt) ->
     return next err if err
 
     # Hash the password using our new salt
-    bcrypt.hash this.password, salt, (err, hash) ->
+    bcrypt.hash user.password, salt, (err, hash) ->
       return next err if err
 
       # Override the cleartext password with the hash
-      this.password = hash
+      user.password = hash
       next()
 
 
-userSchema.methods.comparePassword = (candidate, cb) ->
+UserSchema.methods.comparePassword = (candidate, cb) ->
   bcrypt.compare candidate, this.password, (err, match) ->
     return cb err if err
     cb null, match
 
 
-User = mongoose.model 'User', userSchema
-module.exports = userSchema
+User = mongoose.model 'User', UserSchema
+module.exports = User

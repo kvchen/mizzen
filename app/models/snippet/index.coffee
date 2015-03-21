@@ -1,7 +1,7 @@
 mongoose = require 'mongoose'
 
 
-SubmissionSchema = new mongoose.Schema
+SnippetSchema = new mongooseSchema
   name: String
   private: Boolean
 
@@ -21,6 +21,12 @@ SubmissionSchema = new mongoose.Schema
     type: Number
     required: true
 
+  run: 
+    type: Boolean
+    default: true
 
-Submission = mongoose.model 'Submission', SubmissionSchema
-module.exports = Submission
+  input: String
+
+
+Snippet = mongoose.model 'Snippet', SnippetSchema
+module.exports = Snippet

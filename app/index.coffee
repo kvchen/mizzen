@@ -1,4 +1,5 @@
-express = require 'express'
+bodyParser = require 'body-parser'
+express    = require 'express'
 
 config = require './config'
 logger = require './lib/logger'
@@ -7,6 +8,10 @@ routes = require './routes'
 
 # Instantiate the Express app with default settings
 app = express()
+app.use bodyParser.urlencoded
+	extended: false
+app.use bodyParser.json()
+
 
 app.set "port", process.env.PORT or 3000
 app.set "views", __dirname + "/public/views"

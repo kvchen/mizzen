@@ -1,15 +1,32 @@
 Mizzen
 ======
-
 [![Build Status](https://travis-ci.org/kvchen/mizzen.svg)](https://travis-ci.org/kvchen/mizzen)
 
-## Overview
+## Introduction
 
-Mizzen is a lightweight framework for arbitrary code execution. 
+Mizzen is a framework that allows for arbitrary server-side code execution. It is designed for computer science instructors and educators to set up simple autograding services that allow for course, problem set, and submission management.
 
-## API
-
-
+Being Docker-based, Mizzen also comes with security in the form of virtualization. All autograding scripts are run in containers, which makes them slightly safer than running them in the same namespace as instructor accounts (as is often the case).
 
 ## Installation
+
+Mizzen relies on [Node.js](https://nodejs.org/), [Docker](https://www.docker.com/), and [MongoDB](http://www.mongodb.org/). These dependencies should be installed prior to using Mizzen.
+
+To install dependencies for Node and client-side libraries from Bower:
+
+```
+npm install
+bower install
+```
+
+To run tests:
+
+```
+npm test
+```
+
+
+## Documentation
+
+TODO
 
