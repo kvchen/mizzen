@@ -6,7 +6,11 @@ CourseSchema = new mongoose.Schema
     type: String
     required: true
 
-  problems: [{type: mongoose.Schema.Types.ObjectId, ref: 'Problem'}]
+  active:
+    type: Boolean
+    default: true
+
+  assignments: [{type: mongoose.Schema.Types.ObjectId, ref: 'Assignment'}]
 
 
 Course = mongoose.model 'Course', CourseSchema

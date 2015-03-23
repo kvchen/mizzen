@@ -1,7 +1,14 @@
 bodyParser = require 'body-parser'
 express    = require 'express'
+mongoose   = require 'mongoose'
+nconf      = require 'nconf'
+passport   = require 'passport'
 
-config = require './config'
+# Initialize config, auth, and database settings
+require './config'
+require './lib/db'
+
+
 logger = require './lib/logger'
 routes = require './routes'
 
@@ -9,8 +16,12 @@ routes = require './routes'
 # Instantiate the Express app with default settings
 app = express()
 app.use bodyParser.urlencoded
-	extended: false
+  extended: false
 app.use bodyParser.json()
+
+
+app.use passport.initialize()
+app.use passport.session()
 
 
 app.set "port", process.env.PORT or 3000

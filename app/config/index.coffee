@@ -12,6 +12,9 @@ nconf.argv()
 nconf.env()
 
 
+nconf.set 'env', 'development'
+
+
 # Load external configuration files
 nconf.set 'docker', docker_conf
 nconf.set 'mongodb', mongodb_conf

@@ -3,17 +3,12 @@ mongoose = require 'mongoose'
 nconf    = require 'nconf'
 
 app = require '../app'
-User = require '../app/models/users'
+User = require '../app/models/user'
 
 
 describe 'User tests', ->
 	before (done) ->
-		testDB = nconf.get 'mongodb:uri:test'
-		mongoose.connect testDB, (err) ->
-			throw err if err
-
-		mongoose.connection.on 'open', ->
-			mongoose.connection.db.dropDatabase done
+		mongoose.connection.db.dropDatabase done
 
 	describe 'Test authentication', ->
 		before (done) ->
