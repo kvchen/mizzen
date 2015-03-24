@@ -3,8 +3,10 @@ nconf = require 'nconf'
 
 logger = require '../lib/logger'
 
-mongodb_conf = require './mongodb'
+app_conf = require './app'
+auth_conf = require './auth'
 docker_conf  = require './docker'
+mongodb_conf = require './mongodb'
 
 
 nconf.use 'memory'
@@ -12,10 +14,9 @@ nconf.argv()
 nconf.env()
 
 
-nconf.set 'env', 'development'
-
-
 # Load external configuration files
+nconf.set 'app', app_conf
+nconf.set 'auth', auth_conf
 nconf.set 'docker', docker_conf
 nconf.set 'mongodb', mongodb_conf
 

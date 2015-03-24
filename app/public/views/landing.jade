@@ -1,8 +1,9 @@
-doctype html
-html(lang="en")
-  head
-    title= Mizzen
-    script(src='vendor/particles.js/particles.js', type='text/javascript')
+extends ./layout/main.jade
 
-  body
-    h1 Testing
+
+block content
+  h1 Mizzen
+
+  a(class="ui primary button" href="/login") Login
+  a(class="ui button" href="/signup") Sign up
+

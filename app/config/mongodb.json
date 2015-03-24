@@ -1,7 +1,7 @@
 {
   "uri": {
-    "development": "mongodb://localhost/mizzen-dev",
+    "dev": "mongodb://localhost/mizzen-dev",
     "test": "mongodb://localhost/mizzen-test", 
-    "production": "mongodb://localhost/mizzen"
+    "prod": "mongodb://localhost/mizzen"
   }
 }

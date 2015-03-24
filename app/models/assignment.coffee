@@ -5,6 +5,13 @@ AssignmentSchema = new mongoose.Schema
   name: 
     type: String
     required: true
+
+  description:
+    type: String
+
+  owner:
+    type: mongoose.Schema.Types.ObjectId
+    ref: 'User'
   
   visible: 
     type: Boolean
@@ -14,11 +21,24 @@ AssignmentSchema = new mongoose.Schema
     type: Date
     default: Date.now
 
+  updated:
+    type: Date
+    default: Date.now
+
   deadline:
     type: Date
-    required: true
 
-  problems: [{type: mongoose.Schema.Types.ObjectId, ref: 'Problem'}]
+  problems: [
+    type: mongoose.Schema.Types.ObjectId
+    ref: 'Problem'
+  ]
+
+
+
+AssignmentSchema.pre 'save', (next) ->
+  this.updated = new Date()
+  next()
+
 
 
 Assignment = mongoose.model 'Assignment', AssignmentSchema

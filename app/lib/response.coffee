@@ -1,10 +1,15 @@
 logger = require './logger'
 
-apiErrorHandler = (err, req, res, next) ->
-  res.json
-    'ok': false, 
-    'error': err
+apiResponseFormatter = (err, req, res, next) ->
+  if err
+    res.json 
+      ok: false
+      error: err.message
+  else
+    res.json
+      ok: true
+      req.payload
 
-module.exports.apiErrorHandler = apiErrorHandler
+module.exports.apiResponseFormatter = apiResponseFormatter
 
 

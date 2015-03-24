@@ -6,10 +6,17 @@ UserSchema = new mongoose.Schema
   username: 
     type: String
     required: true
-    index: 
-      unique: true
+    unique: true
   
   password: 
+    type: String
+    required: true
+
+  first:
+    type: String
+    required: true
+
+  last:
     type: String
     required: true
 
@@ -25,7 +32,7 @@ UserSchema.pre 'save', (next) ->
   return next() if !user.isModified 'password'
 
   # Generate a salt
-  bcrypt.genSalt 10, (err, salt) ->
+  bcrypt.genSalt 12, (err, salt) ->
     return next err if err
 
     # Hash the password using our new salt

@@ -1,10 +1,22 @@
 mongoose = require 'mongoose'
 nconf    = require 'nconf'
 
-node_env = nconf.get 'NODE_ENV'
-database = nconf.get 'mongodb:uri:' + node_env
+logger = require './logger'
 
-mongoose.connect database, (err) ->
-  logger.error "Error connecting to database" if err
+
+node_env = nconf.get 'NODE_ENV'
+if not node_env
+  node_env = 'dev'
+
+db_uri = nconf.get 'mongodb:uri:' + node_env
+
+mongoose.connect db_uri, (err) ->
+  logger.error "Failed to connect to database" if err
+
+
+process.on 'SIGINT', ->
+  mongoose.connection.close ->
+    logger.info 'Closing mongoose connection'
+    process.exit 0
 
 

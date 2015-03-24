@@ -1,13 +1,14 @@
-bodyParser = require 'body-parser'
-express    = require 'express'
-mongoose   = require 'mongoose'
-nconf      = require 'nconf'
-passport   = require 'passport'
+bodyParser   = require 'body-parser'
+coffeescript = require 'connect-coffee-script'
+express      = require 'express'
+mongoose     = require 'mongoose'
+nconf        = require 'nconf'
+passport     = require 'passport'
 
 # Initialize config, auth, and database settings
+require './auth'
 require './config'
 require './lib/db'
-
 
 logger = require './lib/logger'
 routes = require './routes'
@@ -15,16 +16,19 @@ routes = require './routes'
 
 # Instantiate the Express app with default settings
 app = express()
-app.use bodyParser.urlencoded
-  extended: false
-app.use bodyParser.json()
-
-
 app.use passport.initialize()
 app.use passport.session()
 
 
-app.set "port", process.env.PORT or 3000
+app.use bodyParser.urlencoded
+  extended: false
+app.use bodyParser.json()
+
+app.use coffeescript
+  src: __dirname + "/public/assets"
+  bare: true
+
+app.set "port", process.env.PORT or nconf.get 'app:port'
 app.set "views", __dirname + "/public/views"
 app.set "view engine", "jade"
 
@@ -35,9 +39,11 @@ app.disable "x-powered-by"
 app.use express.static __dirname + "/public/assets"
 
 
-# Define API endpoints
-app.use '/', routes.landing
-app.use '/api', routes.api
+# Define routers
+app.use '/', routes.app
+app.use '/api', 
+  passport.authenticate 'bearer', { session: false }
+  routes.api
 
 
 # Export app for other modules to use

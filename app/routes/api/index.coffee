@@ -1,21 +1,26 @@
 router = require('express').Router()
 
-error = require '../../lib/response'
+apiResponse = require './api-response'
 
-# courses     = require './courses'
+
+courses     = require './courses'
 assignments = require './assignments'
+oauth       = require './oauth'
 problems    = require './problems'
 submissions = require './submissions'
 users       = require './users'
 
 
 # Define API endpoints
-# router.use '/courses', courses
+router.use '/oauth', oauth
+
+router.use '/courses', courses
 router.use '/assignments', assignments
 router.use '/problems', problems
 router.use '/submissions', submissions
 router.use '/users', users
 
-router.use error.apiErrorHandler
+router.use apiResponse.error
+router.use apiResponse.response
 
 module.exports = router

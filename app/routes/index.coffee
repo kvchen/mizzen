@@ -1,7 +1,7 @@
-landing = require './landing'
-api     = require './api'
+app = require './app'
+api = require './api'
 
-module.exports.landing = landing
+module.exports.app = app
 module.exports.api = api
 
 
